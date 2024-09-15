@@ -34,7 +34,7 @@ class MyRNN(nn.Module):#搭建RNN的模型
             hidden = self.new_hidden(x[:, data,: ], hidden)
         output = self.h_to_o(hidden)#获取最终的输出层
         return output
-
+#示例
 inputsize = 10
 hiddensize = 15
 mymodule = MyRNN(inputsize, hiddensize)
