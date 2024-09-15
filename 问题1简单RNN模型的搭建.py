@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-import torch.nn.functional as func
 """
 RNN的本质实际上是线性变换，将循环结构拆分后可发现RNN实际上是由线性层组成的：
 一个是将原始数据输入隐藏层；另一个是将上一个隐藏层的数据输入到该隐藏层
@@ -17,7 +16,7 @@ class New_hidden(nn.Module):#对数据进行处理，得到新的隐藏层
 
     def forward(self, x, hidden):
         combined = self.i_to_h(x) + self.h_to_h(hidden)
-        new_hidden = func.tanh(combined)
+        new_hidden = torch.tanh(combined)
         return new_hidden
 
 class MyRNN(nn.Module):#搭建RNN的模型
