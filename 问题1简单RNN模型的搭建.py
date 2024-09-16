@@ -39,7 +39,7 @@ hiddensize = 4
 outputsize = 5
 mymodule = MyRNN(inputsize, hiddensize, outputsize)
 data = torch.randn(5, 7, inputsize)
-output = mymodule(data)
+output = mymodule(data)    #其输入为[batch_size, seq_len, input_size]的张量
 print(output)
 
 
