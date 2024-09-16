@@ -48,7 +48,7 @@ class MyRNN(nn.Module):     #搭建RNN的模型
 
 
 inputsize = 28     #Fashion Mnist的数据集是28*28的图像
-hiddensize = 128
+hiddensize = 100
 outputsize = 10     #输出共有10个种类
 
 mymodel = MyRNN(inputsize, hiddensize, outputsize)     #定义模型
@@ -77,8 +77,8 @@ for epoch in range(epochs):
         running_loss = running_loss + loss.item()
         total_train_step = total_train_step + 1
         if total_train_step % 500 == 0:
-            print("训练总次数:{}，Loss:{}".format(total_train_step, loss.item()))
-    print("本轮训练的总损失:{}".format(running_loss))
+            print("训练总次数:{}，本次训练中的损失={}".format(total_train_step, loss.item()))
+    print("本轮训练的总损失={}".format(running_loss))
 #开始测试:
     #mymodel.eval()     实际对模型没有什么作用
     total_test_loss = 0.0
@@ -92,8 +92,8 @@ for epoch in range(epochs):
             total_test_loss = total_test_loss + result_loss.item()
             accuracy = (outputs.argmax(1) == targets).sum()
             total_accuracy = total_accuracy + accuracy
-    print("整个测试集上的损失为:{}".format(total_test_loss))
-    print("整体测试集的正确率为:{}".format(total_accuracy / test_size))
+    print("整个测试集上的损失={}".format(total_test_loss))
+    print("整体测试集的正确率={}".format(total_accuracy / test_size))
 
 
 
