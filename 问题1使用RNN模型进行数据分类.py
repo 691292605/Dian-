@@ -95,6 +95,6 @@ for epoch in range(epochs):
     print("整个测试集上的损失={}".format(total_test_loss))
     print("整体测试集的正确率={}".format(total_accuracy / test_size))
 
-
+#在该模型中以测试集中分类的正确率作为分类的指标评判模型的效果
 
 
