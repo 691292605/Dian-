@@ -11,7 +11,7 @@ import math
 class Encoding(nn.Module):
     def __init__(self, max_len, dim):
         super(Encoding, self).__init__()
-        if dim % 2 != 0:    #在代码编写完之后测试发现，该绝对编码过程无法处理维度为奇数的情况，故这里增加了对奇数的处理情况
+        if dim % 2 != 0:    #在测试时发现，该绝对编码过程无法处理维度为奇数的情况，故这里增加了对奇数的处理情况
             dim += 1
             self.is_odd = True
         pe = torch.zeros(max_len, dim)
