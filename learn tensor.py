@@ -37,3 +37,13 @@ print(tensor)
 print("----------------------------------------")
 tensor = tensor.unsqueeze(2)    #升维后tensor为[3, 1, 1, 1]
 print(tensor)
+print("----------------------------------------")
+
+ten = torch.arange(0, 10)
+print(ten)
+ten = torch.arange(0, 10, 2)
+print(ten)
+t = torch.cat([ten, ten], dim = 0)
+print(t)
+tt = torch.einsum('i, j -> ij', ten, ten)
+print(tt)
