@@ -11,18 +11,23 @@ import math
 class Encoding(nn.Module):
     def __init__(self, max_len, dim):
         super(Encoding, self).__init__()
-        if dim % 2 != 0:    #在测试时发现，该绝对编码过程无法处理维度为奇数的情况，故这里增加了对奇数的处理情况
+        if dim % 2 != 0:    #在代码编写完之后测试发现，该绝对编码过程无法处理维度为奇数的情况，故这里增加了对奇数的处理情况
             dim += 1
             self.is_odd = True
         pe = torch.zeros(max_len, dim)
         position = torch.arange(0, max_len).unsqueeze(1)
-        div_term = torch.arange(0, dim, 2)
-        div_term = torch.exp(div_term * (-math.log(10000.0) / dim))
-        pe[:, 0::2] = torch.sin(position * div_term)
-        pe[:, 1::2] = torch.cos(position * div_term)
+        func = torch.arange(0, dim, 2)
+        func = torch.exp(func * (-math.log(10000.0) / dim))
+        pe[:, 0::2] = torch.sin(position * func)
+        pe[:, 1::2] = torch.cos(position * func)
+        #具体公式的推导和运行的过程在note里
+        """
+        直接在这里进行位置编码的计算是因为每个位置的位置编码都是固定的，与参数无关，只与位置有关
+        也就是说在init中直接计算可以避免在下面的函数中进行重复计算
+        """
         if self.is_odd:
             pe = pe[:, :-1]
-        self.register_buffer('pe', pe.unsqueeze(0))
+        self.register_buffer('pe', pe.unsqueeze(0))     #为了使计算的编码保存在模型本身中，保证不会随着下面的计算而改变
 
     def forward(self, data):
         seq_len = data.size(1)
