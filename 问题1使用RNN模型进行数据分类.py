@@ -53,7 +53,7 @@ outputsize = 10     #输出共有10个种类
 
 mymodel = MyRNN(inputsize, hiddensize, outputsize)     #定义模型
 
-criterion = CrossEntropyLoss()    #定义损失函数，对于分类问题选择交叉熵
+Loss_func = CrossEntropyLoss()    #定义损失函数，对于分类问题选择交叉熵
 optimizer = optim.Adam(mymodel.parameters(), lr=0.001)      #定义优化器
 total_train_step = 0
 total_test_step = 0
@@ -69,8 +69,10 @@ for epoch in range(epochs):
     running_loss = 0.0
     for images, targets in train_loader:
         images = images.view(-1, 28, 28)
-        outputs = mymodel(images)
-        loss = criterion(outputs, targets)
+        outputs = mymodel(images)       #生成每个衣服在对应类中的概率，取概率最大为预测结果
+        #print(outputs)
+        #print(targets)
+        loss = Loss_func(outputs, targets)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -88,7 +90,7 @@ for epoch in range(epochs):
             imgs, targets = Data
             imgs = imgs.view(imgs.size(0), 28, 28)
             outputs = mymodel(imgs)
-            result_loss = criterion(outputs, targets)
+            result_loss = Loss_func(outputs, targets)
             total_test_loss = total_test_loss + result_loss.item()
             accuracy = (outputs.argmax(1) == targets).sum()
             total_accuracy = total_accuracy + accuracy
@@ -96,5 +98,3 @@ for epoch in range(epochs):
     print("整体测试集的正确率={}".format(total_accuracy / test_size))
 
 #在该模型中以测试集中分类的正确率作为分类的指标评判模型的效果
-
-
