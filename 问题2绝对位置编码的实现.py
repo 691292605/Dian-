@@ -17,7 +17,6 @@ class Encoding(nn.Module):
         func = 1 / (10000 ** (torch.arange(0, dim, 2) // dim)).float()
         pe[:, 0::2] = torch.sin(position * func)
         pe[:, 1::2] = torch.cos(position * func)
-        #具体公式的推导和运行的过程在note里
         """
         直接在这里进行位置编码的计算是因为每个位置的位置编码都是固定的，与参数无关，只与位置有关
         即在init中直接计算可以避免在下面的函数中进行重复计算
