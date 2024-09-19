@@ -33,5 +33,7 @@ class rope(nn.Module):
 d = 8
 data = torch.randn(3, d)
 Rope = rope(d)
-outputs = Rope(data) + data
-print("旋转位置编码：", Rope(data), sep = '\n')
+result = Rope(data) + data
+print("data: ", data, sep = '\n')
+print("rope：", Rope(data), sep = '\n')
+print("result: ", result, sep = '\n')
