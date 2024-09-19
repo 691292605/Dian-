@@ -78,7 +78,7 @@ for epoch in range(epochs):
         optimizer.step()
         running_loss = running_loss + loss.item()
         total_train_step = total_train_step + 1
-        if total_train_step % 500 == 0:
+        if total_train_step % 100 == 0:
             print("训练总次数:{}，本次训练中的损失={}".format(total_train_step, loss.item()))
     print("本轮训练的总损失={}".format(running_loss))
 #开始测试:
