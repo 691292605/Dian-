@@ -17,12 +17,12 @@ class attention(nn.Module):
         dim = q.size(-1)
         weights = torch.softmax(k.T @ q / dim ** 0.5, dim = -1)
         attention_weight = v @ weights
-        return attention_weight
+        return attention_weight, weights
 
 
 
 Input_size = 5
-Hidden_size = 20
+Hidden_size = 10
 seq_len = 2
 
 x = torch.randn(seq_len, Input_size)
@@ -38,9 +38,10 @@ optimizer = optim.Adam(my_attention.parameters(), lr = 0.01)
 epochs = 100
 for epoch in range(epochs):
     optimizer.zero_grad()
-    output = my_attention(x)
+    output, weight = my_attention(x)
     Loss = loss(output, target)
     Loss.backward()
     optimizer.step()
     if epoch % 10 == 0:
         print("loss:{}".format(Loss))
+        print("weight: ", weight)
