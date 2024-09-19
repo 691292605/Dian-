@@ -2,7 +2,7 @@ import torch
 
 """
 我在这个代码里进行了关于tensor这个数据类型在python和pytorch中的学习， 其中包括如何使用张量这样的数据类型，如何使用不同维度的张量的数据，张量的索引和切片等操作
-以及一些pytorch中的处理张量的函数，如生成0张量，生成全是随机数的张量，张量的升维和降维，爱因斯坦求和，张量的拼接等
+以及一些pytorch中的处理张量的函数，如生成0张量，生成全是随机数的张量，张量的升维和降维
 """
 
 Tensor = torch.zeros(3, 3, 3)   #只能生成三阶的0张量，不能把张量归0
@@ -45,5 +45,20 @@ ten = torch.arange(0, 10, 2)
 print(ten)
 t = torch.cat([ten, ten], dim = 0)
 print(t)
-tt = torch.einsum('i, j -> ij', ten, ten)
-print(tt)
+m = torch.arange(0, 5)
+print(m)
+re = torch.einsum('i ,j -> ij', m, t)
+print(re)
+sin = re.sin()
+print(sin)
+print("----------------------------------------")
+
+a = torch.randn(3, 4)
+b = torch.randn(3, 4)
+print(a)
+print("----------------------------------------")
+print(b)
+print("----------------------------------------")
+print(b.T)
+c = a @ b.T
+print(c)
